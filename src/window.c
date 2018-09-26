@@ -6,22 +6,13 @@
 /*   By: abiriuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:35:33 by abiriuk           #+#    #+#             */
-/*   Updated: 2018/09/20 20:25:57 by abiriuk          ###   ########.fr       */
+/*   Updated: 2018/09/26 19:50:36 by abiriuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
-
-void	wind(t_all *all, t_pic *pic)
-{
-	all->win_str.mlx_ptr = mlx_init();
-	all->win_str.win_ptr = mlx_new_window(all->win_str.mlx_ptr, 
-			HOR, VER, "fractol");
-	mlx_hook(all->win_str.win_ptr, 17, 1L << 17, exit_x, (void *)0);
-	mlx_key_hook(all->win_str.win_ptr, exit_esc, (void *)0);
-	make_img(pic, all);
-}
+#include "fractol.h"
 
 int		make_img(t_pic *picture, t_all *all)
 {
@@ -39,32 +30,47 @@ int		make_img(t_pic *picture, t_all *all)
 	return (0);
 }
 
-t_num		transform_pix(int i)
+void	wind(t_all *all, t_pic *pic)
 {
-	int			x;
-	int			y;
-	t_num		num;
-	t_factor	fact;
-
-	x = i % HOR;
-	y = i / VER;
-	fact.re_fact = ((MAXRE - MINRE) / (HOR - 1));
-	fact.im_fact = ((MAXIM - MINIM) / (VER - 1));
-	num.c_re = MINRE + (x * fact.re_fact);
-	num.c_im = MAXIM - (y * fact.im_fact);
-	return (num);
-//это комплексное в функцию бросить и узнать цвет. и этот цвет записать в масив
+	all->win_str.mlx_ptr = mlx_init();
+	all->win_str.win_ptr = mlx_new_window(all->win_str.mlx_ptr, 
+			HOR, VER, "fractol");
+	mlx_hook(all->win_str.win_ptr, 17, 1L << 17, exit_x, (void *)0);
+	mlx_key_hook(all->win_str.win_ptr, exit_esc, (void *)0);
+	mlx_hook(all->win_str.win_ptr, 2, 5, move, all);
+	make_img(pic, all);
 }
 
-void	change_px(t_pic *picture)
+t_num		transform_pix(int i, t_all *all)
+{
+	t_num		num;
+	t_fact		fact;
+
+	num.x = i % HOR + all->move.x;
+	num.y = i / HOR + all->move.y;
+	fact.re_fact = ((MAXRE - MINRE) / (HOR - 1));
+	fact.im_fact = ((MAXIM - MINIM) / (VER - 1));
+	num.c_re = MINRE + (num.x * fact.re_fact);
+	num.c_im = MAXIM - (num.y * fact.im_fact);
+	return (num);
+}
+
+void	change_px(t_pic *picture, t_all *all)
 {
 	int		i;
-	t_num	num;;
+	t_num	num;
+	int		res;
 
 	i = 0;
 	while(i < picture->img_mas)
 	{
-		num = transform_pix(i);
+		num = transform_pix(i, all);
+		res = mandelbrot(num);
+		picture->img_arr[i] = set_col(res);
 		i++;
 	}
+	mlx_put_image_to_window(all->win_str.mlx_ptr, all->win_str.win_ptr,
+			picture->img_ptr, 0, 0);
 }
+
+

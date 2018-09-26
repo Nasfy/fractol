@@ -6,12 +6,15 @@
 /*   By: abiriuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 18:11:26 by abiriuk           #+#    #+#             */
-/*   Updated: 2018/09/20 17:27:48 by abiriuk          ###   ########.fr       */
+/*   Updated: 2018/09/26 19:39:30 by abiriuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <unistd.h>
+#include "libft.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 void	error_msg(char *str)
 {
@@ -22,10 +25,14 @@ void	error_msg(char *str)
 	exit(0);
 }
 
-void	check_name(char *name)
+void	check_name(char *name, t_all *all, t_pic *pic)
 {
 	if (ft_strequ(name, "Mandelbrot"))
-		;
+	{
+
+		wind(all, pic);
+		change_px(pic, all);
+	}
 	else if (ft_strequ(name, "Julia"))
 		;
 	else
@@ -43,7 +50,14 @@ static void	usage(void)
 
 int		main(int ac, char **av)
 {
+	t_all all;
+	t_pic pic;
+
+	all.picture = &pic;
+	all.move.x = 0;
+	all.move.y = 0;
 	if (ac != 2)
 	usage();
-	check_name(av[1]);
+	check_name(av[1], &all, all.picture);
+	mlx_loop(all.win_str.mlx_ptr);
 }
