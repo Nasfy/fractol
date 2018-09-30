@@ -6,7 +6,7 @@
 #    By: abiriuk <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/12 18:00:41 by abiriuk           #+#    #+#              #
-#    Updated: 2018/09/26 19:11:16 by abiriuk          ###   ########.fr        #
+#    Updated: 2018/09/30 18:42:40 by abiriuk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCPATH=src
 OBJPATH=obj
 LFTFILE=libft.a
 LFT=$(addprefix $(LFTPATH), $(LFTFILE))
-SRCS= exit.c main.c mandelbrot.c window.c color.c move.c
+SRCS= exit.c main.c mandelbrot.c window.c color.c move.c mouse_zoom.c
 OBJ=$(SRCS:.c=.o)
 
 MLX=-L /usr/local/lib -lmlx -framework OpenGL -framework AppKit

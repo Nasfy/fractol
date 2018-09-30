@@ -6,7 +6,7 @@
 /*   By: abiriuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:35:33 by abiriuk           #+#    #+#             */
-/*   Updated: 2018/09/26 19:50:36 by abiriuk          ###   ########.fr       */
+/*   Updated: 2018/09/30 19:20:12 by abiriuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,14 @@ void	wind(t_all *all, t_pic *pic)
 	all->win_str.mlx_ptr = mlx_init();
 	all->win_str.win_ptr = mlx_new_window(all->win_str.mlx_ptr, 
 			HOR, VER, "fractol");
+	all->zoom.min_re = -2.0;
+	all->zoom.max_re = 1.0;
+	all->zoom.min_im = -1.2;
+	all->zoom.max_im = (all->zoom.min_im + (all->zoom.max_re -
+				all->zoom.min_re) * VER / HOR);
 	mlx_hook(all->win_str.win_ptr, 17, 1L << 17, exit_x, (void *)0);
 	mlx_key_hook(all->win_str.win_ptr, exit_esc, (void *)0);
+	mlx_mouse_hook(all->win_str.win_ptr, mouse, all);
 	mlx_hook(all->win_str.win_ptr, 2, 5, move, all);
 	make_img(pic, all);
 }
@@ -48,10 +54,10 @@ t_num		transform_pix(int i, t_all *all)
 
 	num.x = i % HOR + all->move.x;
 	num.y = i / HOR + all->move.y;
-	fact.re_fact = ((MAXRE - MINRE) / (HOR - 1));
-	fact.im_fact = ((MAXIM - MINIM) / (VER - 1));
-	num.c_re = MINRE + (num.x * fact.re_fact);
-	num.c_im = MAXIM - (num.y * fact.im_fact);
+	fact.re_fact = ((all->zoom.max_re - all->zoom.min_re) / (HOR - 1));
+	fact.im_fact = ((all->zoom.max_im - all->zoom.min_im) / (VER - 1));
+	num.c_re = all->zoom.min_re + (num.x * fact.re_fact);
+	num.c_im = all->zoom.max_im - (num.y * fact.im_fact);
 	return (num);
 }
 

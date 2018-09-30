@@ -6,7 +6,7 @@
 /*   By: abiriuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:36:24 by abiriuk           #+#    #+#             */
-/*   Updated: 2018/09/26 19:51:32 by abiriuk          ###   ########.fr       */
+/*   Updated: 2018/09/30 19:20:08 by abiriuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,10 @@
 # include "mlx.h"
 
 
-# define HOR 800
-# define VER 800
+# define HOR 1200
+# define VER 1200
 # define ITTER 35
 # define MOVE 25
-# define MINRE -2.0
-# define MAXRE 1.0
-# define MINIM -1.2
-# define MAXIM (MINIM + (MAXRE - MINRE) * VER / HOR)
-# define REFACTOR ((MAXRE - MINRE) / (HOR - 1))
-# define IMFACTOR ((MAXIM - MINIM) / (VER - 1))
 
 typedef	struct		s_win
 {
@@ -52,11 +46,20 @@ typedef	struct		s_num
 	double			c_im;
 }					t_num;
 
+typedef	struct		s_start_end
+{
+	double			min_re;
+	double			max_re;
+	double			min_im;
+	double			max_im;
+}					t_start_end;
+
 typedef	struct		s_all
 {
 	t_win			win_str;
 	t_num			move;
 	t_pic			*picture;
+	t_start_end		zoom;
 }					t_all;
 
 typedef	struct		s_fact
@@ -64,6 +67,8 @@ typedef	struct		s_fact
 	double			re_fact;
 	double			im_fact;
 }					t_fact;
+
+
 
 int					exit_x(void *par);
 int					exit_esc(int keycode, void *param);
@@ -73,5 +78,6 @@ int					mandelbrot(t_num num);
 void				change_px(t_pic *picture, t_all *all);
 int					set_col(int res);
 int					move(int keycode, void *all);
+int					mouse(int button, int x, int y, void *param);
 
 #endif
