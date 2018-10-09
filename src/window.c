@@ -6,7 +6,7 @@
 /*   By: abiriuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:35:33 by abiriuk           #+#    #+#             */
-/*   Updated: 2018/10/02 17:32:40 by abiriuk          ###   ########.fr       */
+/*   Updated: 2018/10/09 20:17:11 by abiriuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	wind(t_all *all, t_pic *pic)
 	all->win_str.mlx_ptr = mlx_init();
 	all->win_str.win_ptr = mlx_new_window(all->win_str.mlx_ptr, 
 			HOR, VER, "fractol");
+//	mlx_hook(all->win_str.win_ptr, 2, 5, precision, all);
 	mlx_hook(all->win_str.win_ptr, 17, 1L << 17, exit_x, (void *)0);
 	mlx_key_hook(all->win_str.win_ptr, exit_esc, (void *)0);
 	make_img(pic, all);

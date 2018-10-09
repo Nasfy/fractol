@@ -6,7 +6,7 @@
 /*   By: abiriuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 16:33:28 by abiriuk           #+#    #+#             */
-/*   Updated: 2018/10/09 17:12:17 by abiriuk          ###   ########.fr       */
+/*   Updated: 2018/10/09 20:28:30 by abiriuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <math.h>
 #include "fractol.h"
 
-int     celtic(t_num num)
+int     celtic(t_num num, int itter)
 {
 	double  z_re;
 	double  z_im;
@@ -26,7 +26,7 @@ int     celtic(t_num num)
 	i = 0;
 	z_re = num.c_re;
 	z_im = num.c_im;
-	while (i < ITTER)
+	while (i < itter)
 	{
 		z_re2 = z_re * z_re;
 		z_im2 = z_im * z_im;
@@ -51,8 +51,8 @@ void    change_clt(t_pic *picture, t_all *all)
 	while(i < picture->img_mas)
 	{
 		num = transform_pix(i, all);
-		res = celtic(num);
-		picture->img_arr[i] = set_col(res);
+		res = celtic(num, all->itter);
+		picture->img_arr[i] = set_col(res, all->itter);
 		i++;
 	}
 	mlx_put_image_to_window(all->win_str.mlx_ptr, all->win_str.win_ptr,
@@ -64,6 +64,7 @@ void	cover_clt(t_all *all, t_pic *pic)
 	all->zoom.min_re = -2.0;
 	all->zoom.max_re = 1.0;
 	all->zoom.min_im = -1.5;
+	all->itter = 20;
 	all->zoom.max_im = (all->zoom.min_im + (all->zoom.max_re -
 				all->zoom.min_re) * VER / HOR);
 	change_clt(pic, all);

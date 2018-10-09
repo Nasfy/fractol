@@ -6,7 +6,7 @@
 /*   By: abiriuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:36:24 by abiriuk           #+#    #+#             */
-/*   Updated: 2018/10/09 17:57:43 by abiriuk          ###   ########.fr       */
+/*   Updated: 2018/10/09 21:11:36 by abiriuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 # define HOR 1200
 # define VER 1200
-# define ITTER 35
 # define MOVE 25
 
 typedef	struct		s_win
@@ -61,6 +60,9 @@ typedef	struct		s_all
 	t_pic			*picture;
 	t_start_end		zoom;
 	t_num			mouse;
+	t_num			fix;
+	int				fix_num;
+	int				itter;
 }					t_all;
 
 typedef	struct		s_fact
@@ -75,9 +77,9 @@ int					exit_x(void *par);
 int					exit_esc(int keycode, void *param);
 void				wind(t_all *all, t_pic *pic);
 void				put_pix(int answer, t_num num, t_all *all);
-int					mandelbrot(t_num num);
+int					mandelbrot(t_num num, int itter);
 void				change_px(t_pic *picture, t_all *all);
-int					set_col(int res);
+int					set_col(int res, int itter);
 int					move(int keycode, void *all);
 int					mouse(int button, int x, int y, void *param);
 int					motion(int x, int y, void *param);
@@ -93,5 +95,8 @@ void				change_hrt(t_pic *picture, t_all *all);
 int					mouse_hrt(int button, int x, int y, void *param);
 int					move_hrt(int keycode, void *alli);
 void				cover_hrt(t_all *all, t_pic *pic);
+int					precision(int keycode, void *alli);
+int					mouse_jul(int button, int x, int y, void *param);
+int					move_jul(int keycode, void *alli);
 
 #endif
