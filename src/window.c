@@ -6,7 +6,7 @@
 /*   By: abiriuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:35:33 by abiriuk           #+#    #+#             */
-/*   Updated: 2018/09/30 19:20:12 by abiriuk          ###   ########.fr       */
+/*   Updated: 2018/10/02 17:32:40 by abiriuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,8 @@ void	wind(t_all *all, t_pic *pic)
 	all->win_str.mlx_ptr = mlx_init();
 	all->win_str.win_ptr = mlx_new_window(all->win_str.mlx_ptr, 
 			HOR, VER, "fractol");
-	all->zoom.min_re = -2.0;
-	all->zoom.max_re = 1.0;
-	all->zoom.min_im = -1.2;
-	all->zoom.max_im = (all->zoom.min_im + (all->zoom.max_re -
-				all->zoom.min_re) * VER / HOR);
 	mlx_hook(all->win_str.win_ptr, 17, 1L << 17, exit_x, (void *)0);
 	mlx_key_hook(all->win_str.win_ptr, exit_esc, (void *)0);
-	mlx_mouse_hook(all->win_str.win_ptr, mouse, all);
-	mlx_hook(all->win_str.win_ptr, 2, 5, move, all);
 	make_img(pic, all);
 }
 
@@ -60,23 +53,3 @@ t_num		transform_pix(int i, t_all *all)
 	num.c_im = all->zoom.max_im - (num.y * fact.im_fact);
 	return (num);
 }
-
-void	change_px(t_pic *picture, t_all *all)
-{
-	int		i;
-	t_num	num;
-	int		res;
-
-	i = 0;
-	while(i < picture->img_mas)
-	{
-		num = transform_pix(i, all);
-		res = mandelbrot(num);
-		picture->img_arr[i] = set_col(res);
-		i++;
-	}
-	mlx_put_image_to_window(all->win_str.mlx_ptr, all->win_str.win_ptr,
-			picture->img_ptr, 0, 0);
-}
-
-

@@ -6,7 +6,7 @@
 /*   By: abiriuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:36:24 by abiriuk           #+#    #+#             */
-/*   Updated: 2018/09/30 19:20:08 by abiriuk          ###   ########.fr       */
+/*   Updated: 2018/10/09 17:57:43 by abiriuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef	struct		s_all
 	t_num			move;
 	t_pic			*picture;
 	t_start_end		zoom;
+	t_num			mouse;
 }					t_all;
 
 typedef	struct		s_fact
@@ -79,5 +80,18 @@ void				change_px(t_pic *picture, t_all *all);
 int					set_col(int res);
 int					move(int keycode, void *all);
 int					mouse(int button, int x, int y, void *param);
+int					motion(int x, int y, void *param);
+t_num				transform_pix(int i, t_all *all);
+void				change_mot(t_pic *picture, t_all *all);
+void				change_clt(t_pic *picture, t_all *all);
+int					move_clt(int keycode, void *alli);
+void				change_clt(t_pic *picture, t_all *all);
+int					mouse_clt(int button, int x, int y, void *param);
+void				cover_clt(t_all *all, t_pic *pic);
+void				cover_px(t_all *all, t_pic *pic);
+void				change_hrt(t_pic *picture, t_all *all);
+int					mouse_hrt(int button, int x, int y, void *param);
+int					move_hrt(int keycode, void *alli);
+void				cover_hrt(t_all *all, t_pic *pic);
 
 #endif

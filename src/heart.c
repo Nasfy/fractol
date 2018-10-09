@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   heart.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abiriuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/18 16:57:22 by abiriuk           #+#    #+#             */
-/*   Updated: 2018/10/02 17:26:05 by abiriuk          ###   ########.fr       */
+/*   Created: 2018/10/09 17:11:29 by abiriuk           #+#    #+#             */
+/*   Updated: 2018/10/09 17:40:17 by abiriuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 #include <math.h>
 #include "fractol.h"
 
-int		mandelbrot(t_num num)
+int     heart(t_num num)
 {
-	double	z_re;
-	double	z_im;
-	int 	i;
-	double	z_re2;
-	double	z_im2;
+	double  z_re;
+	double  z_im;
+	int     i;
+	double  z_re2;
+	double  z_im2;
 
 	i = 0;
 	z_re = num.c_re;
@@ -32,26 +32,26 @@ int		mandelbrot(t_num num)
 		z_im2 = z_im * z_im;
 		if (z_re2 + z_im2 > 4)
 			break;
-		z_im = 2 * z_re * z_im + num.c_im;
+		z_im = fabs(z_re) * z_im * 2 + num.c_im;
 		z_re = z_re2 - z_im2 + num.c_re;
 		i++;
 	}
 	return (i);
 }
 
-void    change_px(t_pic *picture, t_all *all)
+void    change_hrt(t_pic *picture, t_all *all)
 {
 	int     i;
 	t_num   num;
 	int     res;
 
 	i = 0;
-	mlx_hook(all->win_str.win_ptr, 2, 5, move, all);
-	mlx_mouse_hook(all->win_str.win_ptr, mouse, all);
+	mlx_mouse_hook(all->win_str.win_ptr, mouse_hrt, all);
+	mlx_hook(all->win_str.win_ptr, 2, 5, move_hrt, all);
 	while(i < picture->img_mas)
 	{
 		num = transform_pix(i, all);
-		res = mandelbrot(num);
+		res = heart(num);
 		picture->img_arr[i] = set_col(res);
 		i++;
 	}
@@ -59,12 +59,12 @@ void    change_px(t_pic *picture, t_all *all)
 			picture->img_ptr, 0, 0);
 }
 
-void    cover_px(t_all *all, t_pic *pic)
+void    cover_hrt(t_all *all, t_pic *pic)
 {
 	all->zoom.min_re = -2.0;
 	all->zoom.max_re = 1.0;
-	all->zoom.min_im = -1.2;
+	all->zoom.min_im = -1.5;
 	all->zoom.max_im = (all->zoom.min_im + (all->zoom.max_re -
 				all->zoom.min_re) * VER / HOR);
-	change_px(pic, all);
+	change_hrt(pic, all);
 }

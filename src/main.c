@@ -6,7 +6,7 @@
 /*   By: abiriuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 18:11:26 by abiriuk           #+#    #+#             */
-/*   Updated: 2018/09/26 19:39:30 by abiriuk          ###   ########.fr       */
+/*   Updated: 2018/10/09 17:31:50 by abiriuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,15 @@ void	error_msg(char *str)
 
 void	check_name(char *name, t_all *all, t_pic *pic)
 {
+	wind(all, pic);
 	if (ft_strequ(name, "Mandelbrot"))
-	{
-
-		wind(all, pic);
-		change_px(pic, all);
-	}
-	else if (ft_strequ(name, "Julia"))
-		;
+		cover_px(all, pic);
+	else if (ft_strequ(name, "Julia")) // сделать чтоб двигалась норм//
+		change_mot(pic, all);
+	else if (ft_strequ(name, "Celtic"))
+		cover_clt(all, pic);
+	else if (ft_strequ(name, "Heart"))
+		cover_hrt(all, pic);
 	else
 		error_msg("Wrong name");
 }
