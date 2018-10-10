@@ -6,7 +6,7 @@
 /*   By: abiriuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 16:36:24 by abiriuk           #+#    #+#             */
-/*   Updated: 2018/10/09 21:11:36 by abiriuk          ###   ########.fr       */
+/*   Updated: 2018/10/10 17:59:42 by abiriuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <math.h>
 # include "mlx.h"
-
 
 # define HOR 1200
 # define VER 1200
@@ -63,6 +62,8 @@ typedef	struct		s_all
 	t_num			fix;
 	int				fix_num;
 	int				itter;
+	double			re_fact;
+	double			im_fact;
 }					t_all;
 
 typedef	struct		s_fact
@@ -98,5 +99,14 @@ void				cover_hrt(t_all *all, t_pic *pic);
 int					precision(int keycode, void *alli);
 int					mouse_jul(int button, int x, int y, void *param);
 int					move_jul(int keycode, void *alli);
+void				change_tri(t_pic *picture, t_all *all);
+int					move_tri(int keycode, void *alli);
+int					mouse_tri(int button, int x, int y, void *param);
+void				cover_tri(t_all *all, t_pic *pic);
+double				interpolate(double start, double end, double inter);
+void				change_buf(t_pic *picture, t_all *all);
+int					move_buf(int keycode, void *alli);
+int					mouse_buf(int button, int x, int y, void *param);
+void				cover_buf(t_all *all, t_pic *pic);
 
 #endif

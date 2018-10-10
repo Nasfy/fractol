@@ -6,7 +6,7 @@
 /*   By: abiriuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 14:53:55 by abiriuk           #+#    #+#             */
-/*   Updated: 2018/10/09 21:14:02 by abiriuk          ###   ########.fr       */
+/*   Updated: 2018/10/10 16:33:26 by abiriuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void	change_mot(t_pic *picture, t_all *all)
 				all->zoom.min_re) * VER / HOR);
 	i = 0;
 	mlx_hook(all->win_str.win_ptr, 6, 0, motion, all);
-//	mlx_hook(all->win_str.win_ptr, 2, 5, move_jul, all);
-//	mlx_mouse_hook(all->win_str.win_ptr, mouse_jul, all);
-//	mlx_hook(all->win_str.win_ptr, 2, 5, precision, all);
+	mlx_hook(all->win_str.win_ptr, 2, 5, move_jul, all);
+	mlx_mouse_hook(all->win_str.win_ptr, mouse_jul, all);
+	mlx_hook(all->win_str.win_ptr, 2, 5, precision, all);
 	mlx_mouse_hook(all->win_str.win_ptr, fix, all);
 	while(i < picture->img_mas)
 	{

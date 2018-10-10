@@ -6,7 +6,7 @@
 /*   By: abiriuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 18:11:26 by abiriuk           #+#    #+#             */
-/*   Updated: 2018/10/09 17:31:50 by abiriuk          ###   ########.fr       */
+/*   Updated: 2018/10/10 18:26:55 by abiriuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,16 @@ void	check_name(char *name, t_all *all, t_pic *pic)
 	wind(all, pic);
 	if (ft_strequ(name, "Mandelbrot"))
 		cover_px(all, pic);
-	else if (ft_strequ(name, "Julia")) // сделать чтоб двигалась норм//
+	else if (ft_strequ(name, "Julia"))
 		change_mot(pic, all);
 	else if (ft_strequ(name, "Celtic"))
 		cover_clt(all, pic);
 	else if (ft_strequ(name, "Heart"))
 		cover_hrt(all, pic);
+	else if (ft_strequ(name, "Tricorn"))
+		cover_tri(all, pic);
+	else if (ft_strequ(name, "Buffalo"))
+		cover_buf(all, pic);
 	else
 		error_msg("Wrong name");
 }
@@ -55,6 +59,8 @@ int		main(int ac, char **av)
 	t_pic pic;
 
 	all.picture = &pic;
+//	all.re_fact = (all.zoom.max_re - all.zoom.min_re) / (HOR - 1);
+//	all.im_fact = (all.zoom.max_im - all.zoom.min_im) / (VER - 1);
 	all.move.x = 0;
 	all.move.y = 0;
 	if (ac != 2)
